@@ -1,13 +1,14 @@
 FROM ruby:2.7.2
 ENV LANG C.UTF-8
 
-RUN apt update -qq && apt install -y build-essential libpq-dev nodejs
+RUN apt-get update -qq && apt install -y build-essential libpq-dev nodejs
 RUN gem install bundler -v 2.2.15
 RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && apt-get install -y yarn
-RUN apt install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+RUN apt-get install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+RUN apt-get install -y libxml2-dev libxslt-dev make gcc libc-dev tzdata
 
 RUN mkdir /myapp
 WORKDIR /myapp
