@@ -1,4 +1,4 @@
-FROM ruby:2.7.2
+FROM ruby:2.7.1
 ENV LANG C.UTF-8
 
 RUN apt-get update -qq && apt install -y build-essential libpq-dev nodejs
@@ -15,7 +15,6 @@ WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
-RUN gem pristine ffi
 COPY . /myapp
 
 # Add a script to be executed every time the container starts.
