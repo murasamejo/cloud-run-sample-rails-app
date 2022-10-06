@@ -16,4 +16,4 @@ fi
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f tmp/pids/server.pid
 
-bin/rails s -p $RAILS_PORT -b 0.0.0.0
+bin/rails s -p $PORT -b 0.0.0.0
