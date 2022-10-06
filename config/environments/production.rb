@@ -2,7 +2,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Cloud Run でアクセスできるようにする
-  config.hosts << '*.*.run.app'
+  # https://railsguides.jp/configuring.html
+  config.hosts << /.*\.run\.app/
 
   # Settings specified here will take precedence over those in config/application.rb.
 
