@@ -17,6 +17,8 @@ gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug"
+  gem "rubocop"
+  gem "rubocop-rails"
 end
 
 group :development do
