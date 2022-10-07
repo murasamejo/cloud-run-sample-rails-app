@@ -1,4 +1,4 @@
-class WelcomeController < ApplicationController # rubocop:disable Style/Documentation, Style/FrozenStringLiteralComment
+class WelcomeController < ApplicationController
   def index
     @message = 'Hello, World!'
   end
