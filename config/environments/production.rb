@@ -4,6 +4,7 @@ Rails.application.configure do
   # Cloud Run でアクセスできるようにする
   # https://railsguides.jp/configuring.html
   config.hosts << /.*\.run\.app/
+  config.hosts << /.*\.beyond-coast\.tokyo/
 
   # Settings specified here will take precedence over those in config/application.rb.
 
