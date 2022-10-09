@@ -1,0 +1,35 @@
+name: Cloud Run サンプル Rails アプリ
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  cloud_run_sample_rails:
+    name: Cloud Run サンプル アプリ
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ["3.1.2"]
+    steps:
+    - name: コードをチェックアウトする
+      uses: actions/checkout@v3
+    - name: Ruby のセットアップを行う
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    - name: $ bundle install を行う
+      uses: actions/cache@v3
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+    - name: データベースをセットアップする
+      run: |
+        bin/rails db:prepare
