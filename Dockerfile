@@ -19,10 +19,6 @@ RUN bundle install
 
 COPY . /myapp
 
-RUN bundle exec rails assets:precompile
-RUN bundle exec rails db:prepare
-RUN bundle exec rails db:seed
-
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 ENTRYPOINT ["entrypoint.sh"]
