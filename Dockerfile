@@ -10,11 +10,17 @@ RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
 
 RUN mkdir /myapp
 WORKDIR /myapp
+
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
+
+RUN gem install bundler
 RUN bundle install
+
 COPY . /myapp
+
 RUN bundle exec rails assets:precompile
+RUN bundle exec rails db:prepare
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
