@@ -38,6 +38,7 @@ jobs:
     - name: データベースをセットアップする
       run: |
         bin/rails db:prepare
+        bin/rails db:seed
 
   deploy_to_cloud_run:
     needs: rails_app_test

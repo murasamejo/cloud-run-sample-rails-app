@@ -2,3 +2,15 @@
   <p><%= @message %></p>
   <p><%= @text %></p>
 </div>
+
+<div>
+  ユーザーは、<br />
+  <% @users.each do |user| %>
+    <%= "name: #{user.name}" %><br />
+    <%= "email: #{user.email}" %><br />
+    <%= "sex: #{user.sex}" %><br />
+    <%= "age: #{user.age}" %><br />
+    <br />
+  <% end %>
+  です。<br />
+</div>
