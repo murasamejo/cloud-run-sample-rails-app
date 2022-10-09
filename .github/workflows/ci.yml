@@ -1,4 +1,4 @@
-name: Cloud Run サンプル Rails アプリ
+name: cloud-run-sample
 
 on:
   push:
@@ -8,9 +8,14 @@ on:
       - 'v*.*.*'
   workflow_dispatch:
 
+env:
+  # TODO: Git のタグを取得して、イメージのタグにする
+  DOCKER_IMAGE: asia-northeast1-docker.pkg.dev/${{ secrets.CLOUD_RUN_PROJECT }}/cloud-run-source-deploy/cloud-run-sample-rails-app
+  GCP_REGION: ${{ secrets.CLOUD_RUN_REGION }}
+
 jobs:
-  cloud_run_sample_rails:
-    name: Cloud Run サンプル アプリ
+  rails_app_test:
+    name: Rails アプリのテスト
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -33,3 +38,32 @@ jobs:
     - name: データベースをセットアップする
       run: |
         bin/rails db:prepare
+
+  deploy_to_cloud_run:
+    needs: rails_app_test
+    if: ${{ github.ref_name == 'main' }}
+    name: Cloud Run にデプロイする
+    runs-on: ubuntu-latest
+    steps:
+      - name: ソースコードをチェックアウトする
+        uses: actions/checkout@v2
+      - name: GCP の認証を行う
+        uses: google-github-actions/auth@v0
+        with:
+          # $ gh secret set GCP_SERVICE_ACCOUNT_CREDENTIALS < creds.json
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_CREDENTIALS }}
+      - name: GCP の CLI の認証を行う
+        run: |
+          gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+      - name: Docker イメージ をビルドする
+        run: |
+          docker build -t ${{ env.DOCKER_IMAGE }} .
+      - name: Docker イメージ をプッシュする
+        run: |
+          docker push ${{ env.DOCKER_IMAGE }}
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: cloud-run-sample-rails-app
+          image: ${{ env.DOCKER_IMAGE }}
+          region: ${{ env.GCP_REGION }}
