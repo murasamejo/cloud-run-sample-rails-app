@@ -24,6 +24,5 @@ production:
   database: cloud_run_sample_rails_app_production
   host: <%= ENV['PG_HOST_PRODUCTION'] || 'localhost' %>
   port: <%= ENV['PG_PORT_PRODUCTION'] || 5432 %>
-  socket: <%= ENV['PG_SOCKET_PRODUCTION'] %>
   username: <%= ENV['PG_USER_PRODUCTION'] %>
   password: <%= ENV['PG_PASS_PRODUCTION'] %>
