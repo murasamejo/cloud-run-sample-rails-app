@@ -15,3 +15,27 @@ unless User.find_by(email: 'mary@example.com')
     age: 21
   )
 end
+
+unless Company.find_by(corp_number: 123)
+  Company.create(
+    corp_number: 123,
+    name: 'Google',
+    prefecture: 'Tokyo'
+  )
+end
+
+unless Company.find_by(corp_number: 456)
+  Company.create(
+    corp_number: 456,
+    name: 'Netflix',
+    prefecture: 'Hokkaido'
+  )
+end
+
+unless Company.find_by(corp_number: 789)
+  Company.create(
+    corp_number: 789,
+    name: 'Nintendo',
+    prefecture: 'Kyoto'
+  )
+end

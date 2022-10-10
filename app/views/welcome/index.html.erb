@@ -14,3 +14,14 @@
   <% end %>
   です。<br />
 </div>
+
+<div>
+  会社は、<br />
+  <% @companies.each do |company| %>
+    <%= "corp_number: #{company.corp_number}" %><br />
+    <%= "name: #{company.name}" %><br />
+    <%= "prefecture: #{company.prefecture}" %><br />
+    <br />
+  <% end %>
+  です。<br />
+</div>
