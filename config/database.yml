@@ -16,8 +16,8 @@ test:
   database: cloud_run_sample_rails_app_test
   host: <%= ENV['PG_HOST_TEST'] || 'localhost' %>
   port: <%= ENV['PG_PORT_TEST'] || 5432 %>
-  username: <%= ENV['PG_USER_TEST'] %>
-  password: <%= ENV['PG_PASS_TEST'] %>
+  username: <%= ENV['PG_USER_TEST'] || 'root' %>
+  password: <%= ENV['PG_PASS_TEST'] || 'postgres' %>
 
 production:
   <<: *default
