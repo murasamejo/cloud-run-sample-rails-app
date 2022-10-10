@@ -18,7 +18,6 @@ gem 'tzinfo-data'
 group :development, :test do
   gem 'debug'
   gem 'dotenv-rails'
-  gem 'rubocop'
   gem 'rubocop-rails'
 end
 
@@ -28,6 +27,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', require: false
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end

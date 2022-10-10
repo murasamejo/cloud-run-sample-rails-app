@@ -57,6 +57,9 @@ jobs:
       run: |
         bin/rails db:prepare
         bin/rails db:seed
+    - name: RSpec を実行する
+      run: |
+        bundle exec rspec
 
   deploy_to_cloud_run:
     needs: rails_app_test
