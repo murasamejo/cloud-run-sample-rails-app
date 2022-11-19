@@ -81,23 +81,6 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-      - name: データベースをセットアップする
-        env:
-          RAILS_ENV: production
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          PG_HOST_PRODUCTION: ${{ secrets.PG_HOST_PRODUCTION }}
-          PG_PORT_PRODUCTION: ${{ secrets.PG_PORT_PRODUCTION }}
-          PG_USER_PRODUCTION: ${{ secrets.PG_USER_PRODUCTION }}
-          PG_PASS_PRODUCTION: ${{ secrets.PG_PASS_PRODUCTION }}
-        run: |
-          echo 'bin/rails db:create'
-          bin/rails db:create
-
-          echo 'bin/rails db:migrate'
-          bin/rails db:migrate
-
-          echo 'bin/rails db:seed'
-          bin/rails db:seed
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0
         with:
