@@ -85,9 +85,9 @@ jobs:
           PG_USER_PRODUCTION: ${{ secrets.PG_USER_PRODUCTION }}
           PG_PASS_PRODUCTION: ${{ secrets.PG_PASS_PRODUCTION }}
         run: |
-          docker run --rm -e RAILS_ENV -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} bin/rails db:create
-          docker run --rm -e RAILS_ENV -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} bin/rails db:migrate
-          docker run --rm -e RAILS_ENV -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} bin/rails db:seed
+          docker run --rm -e RAILS_ENV -e RAILS_MASTER_KEY -e SECRET_KEY_BASE -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} bin/rails db:create
+          docker run --rm -e RAILS_ENV -e RAILS_MASTER_KEY -e SECRET_KEY_BASE -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} bin/rails db:migrate
+          docker run --rm -e RAILS_ENV -e RAILS_MASTER_KEY -e SECRET_KEY_BASE -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} bin/rails db:seed
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0
         with:
