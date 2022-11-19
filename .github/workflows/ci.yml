@@ -45,6 +45,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
+        # ruby-version: .ruby-version
         bundler-cache: true
     - name: データベースをセットアップする
       run: |
@@ -75,7 +76,12 @@ jobs:
       - name: Docker イメージ をプッシュする
         run: |
           docker push ${{ env.DOCKER_IMAGE }}
-      - name: データベースのマイグレーションを行う
+      - name: ローカル環境での Ruby のセットアップを行う
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: データベースをセットアップする
         env:
           RAILS_ENV: production
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
@@ -83,9 +89,10 @@ jobs:
           PG_PORT_PRODUCTION: ${{ secrets.PG_PORT_PRODUCTION }}
           PG_USER_PRODUCTION: ${{ secrets.PG_USER_PRODUCTION }}
           PG_PASS_PRODUCTION: ${{ secrets.PG_PASS_PRODUCTION }}
-        # entrypoint.sh にて rails s をしているので kill する必要がある
         run: |
-          docker run --rm -e RAILS_ENV -e RAILS_MASTER_KEY -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} "bin/rails db:create db:migrate db:seed & pkill -f 'puma'"
+          bin/rails db:create
+          bin/rails db:migrate
+          bin/rails db:seed
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0
         with:
