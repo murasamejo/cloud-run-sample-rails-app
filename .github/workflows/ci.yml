@@ -83,8 +83,9 @@ jobs:
           PG_PORT_PRODUCTION: ${{ secrets.PG_PORT_PRODUCTION }}
           PG_USER_PRODUCTION: ${{ secrets.PG_USER_PRODUCTION }}
           PG_PASS_PRODUCTION: ${{ secrets.PG_PASS_PRODUCTION }}
+        # entrypoint.sh にて rails s をしているので kill する必要がある
         run: |
-          docker run --rm -e RAILS_ENV -e RAILS_MASTER_KEY -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} bin/rails db:create db:migrate db:seed
+          docker run --rm -e RAILS_ENV -e RAILS_MASTER_KEY -e PG_HOST_PRODUCTION -e PG_PORT_PRODUCTION -e PG_USER_PRODUCTION -e PG_PASS_PRODUCTION ${{ env.DOCKER_IMAGE }} "bin/rails db:create db:migrate db:seed & pkill -f 'puma'"
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0
         with:
