@@ -1,41 +1,31 @@
-unless User.find_by(email: 'john@example.com')
-  User.create(
-    name: 'John Doe',
-    email: 'john@example.com',
-    sex: 'male',
-    age: 25
-  )
-end
+User.find_or_create_by(
+  name: 'John Doe',
+  email: 'john@example.com',
+  sex: 'male',
+  age: 25
+)
 
-unless User.find_by(email: 'mary@example.com')
-  User.create(
-    name: 'Mary Jane',
-    email: 'mary@example.com',
-    sex: 'female',
-    age: 21
-  )
-end
+User.find_or_create_by(
+  name: 'Mary Jane',
+  email: 'mary@example.com',
+  sex: 'female',
+  age: 21
+)
 
-unless Company.find_by(corp_number: 123)
-  Company.create(
-    corp_number: 123,
-    name: 'Google',
-    prefecture: 'Tokyo'
-  )
-end
+Company.find_or_create_by(
+  corp_number: 123,
+  name: 'Google',
+  prefecture: 'Tokyo'
+)
 
-unless Company.find_by(corp_number: 456)
-  Company.create(
-    corp_number: 456,
-    name: 'Netflix',
-    prefecture: 'Hokkaido'
-  )
-end
+Company.find_or_create_by(
+  corp_number: 456,
+  name: 'Netflix',
+  prefecture: 'Hokkaido'
+)
 
-unless Company.find_by(corp_number: 789)
-  Company.create(
-    corp_number: 789,
-    name: 'Nintendo',
-    prefecture: 'Kyoto'
-  )
-end
+Company.find_or_create_by(
+  corp_number: 789,
+  name: 'Nintendo',
+  prefecture: 'Kyoto'
+)
