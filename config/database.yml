@@ -10,6 +10,9 @@ development:
   port: <%= ENV['PG_PORT_DEVELOPMENT'] || 5432 %>
   username: <%= ENV['PG_USER_DEVELOPMENT'] || 'root' %>
   password: <%= ENV['PG_PASS_DEVELOPMENT'] || 'postgres' %>
+  template: template0
+  collation: ja_JP.UTF-8
+  ctype: ja_JP.UTF-8
 
 test:
   <<: *default
@@ -26,3 +29,6 @@ production:
   port: <%= ENV['PG_PORT_PRODUCTION'] || 5432 %>
   username: <%= ENV['PG_USER_PRODUCTION'] %>
   password: <%= ENV['PG_PASS_PRODUCTION'] %>
+  template: template0
+  collation: ja_JP.UTF-8
+  ctype: ja_JP.UTF-8
